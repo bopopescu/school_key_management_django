@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Karta osoby {{ human }}{% endblock %}
+
+{% block content %}
+    <h1>Karta osoby: {{ human }}</h1>
+
+    <dl>
+
+    <dt>Jméno</dt>
+    <dd>{{ human.name }}</dd>
+
+    <dt>Přijmení</dt>
+    <dd>{{ human.surname }}</dd>
+
+    <dt>Pozice</dt>
+    <dd>{{ human.position }}</dd>
+
+    <dt>Mzda</dt>
+    <dd>{{ human.salary }}</dd>
+
+    <dt>Místnost</dt>
+    <dd><a href="{% url 'room:detail' human.room_id %}">{{ human.room }}</a></dd>
+
+    <dt>Klice</dt>
+    {% for key in human.key_set.all %}
+        <dd><a href="{% url 'room:detail' key.room_id %}">{{ key.room }}</a></dd>
+    {% empty %}
+        <dd>Nema zadne klice</dd>
+    {% endfor %}
+
+
+    </dl>
+{% endblock %}

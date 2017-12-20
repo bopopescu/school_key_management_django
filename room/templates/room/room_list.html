@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Seznam místností{% endblock %}
+
+{% block content %}
+    <h1>Rooms</h1>
+
+    {% if object_list %}
+    <table>
+    <thead>
+    <tr>
+        <th>Název</th>
+        <th>Číslo</th>
+        <th>Telefon</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for room in object_list %}
+        <tr>
+            <td><a href="{% url 'room:detail' room.id %}">{{ room }}</a></td>
+            <td>{{ room.number }}</td>
+            <td>{{ room.tel }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    {% else %}
+        <p>Ještě žádní lidé</p>
+    {% endif %}
+{% endblock %}

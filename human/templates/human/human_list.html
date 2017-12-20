@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Seznam lidí{% endblock %}
+
+{% block content %}
+    <h1>Humans</h1>
+
+    {% if object_list %}
+    <table>
+    <thead><tr>
+        <th>Jméno</th>
+        <th>Místnost</th>
+        <th>Telefon</th>
+        <th>Pozice</th>
+    </tr></thead>
+    <tbody>
+    {% for human in object_list %}
+        <tr>
+            <td><a href="{% url 'human:detail' human.id %}">{{ human }}</a></td>
+            <td>{{ human.room }}</td>
+            <td>{{ human.room.tel }}</td>
+            <td>{{ human.position }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    {% else %}
+        <p>Ještě žádní lidé</p>
+    {% endif %}
+{% endblock %}

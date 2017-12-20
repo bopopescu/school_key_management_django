@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Karta místnosti {{ room }}{% endblock %}
+
+{% block content %}
+    <h1>Karta místnosti: {{ room }}</h1>
+
+    <dl>
+
+    <dt>Číslo</dt>
+    <dd>{{ room.number }}</dd>
+
+    <dt>Název</dt>
+    <dd>{{ room.name }}</dd>
+
+    <dt>Telefon</dt>
+    <dd>{{ room.tel }}</dd>
+
+    <dt>Lidé</dt>
+    {% for human in room.human_set.all %}
+        <dd><a href="{% url 'human:detail' human.id %}">{{ human }}</a></dd>
+    {% empty %}
+        <dd>Žádní lidé</dd>
+    {% endfor %}
+
+
+    <dt>Prům. mzda</dt>
+    <dd>{{ room.avg_salary|floatformat:2}}</dd>
+
+
+    <dt>Klíče</dt>
+    {% for key in room.key_set.all %}
+        {% with key.human as human %}
+        <dd><a href="{% url 'human:detail' human.id %}">{{ human }}</a></dd>
+        {% endwith %}
+    {% empty %}
+        <dd>Žádné klíče</dd>
+    {% endfor %}
+
+    </dl>
+{% endblock %}
